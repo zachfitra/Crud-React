@@ -8,7 +8,8 @@ function App() {
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');
   const [useredit,setUserEdit] = useState(null);
-  const API_URL = 'http://localhost:8000/person';
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect (()=>{
     getAllData();
