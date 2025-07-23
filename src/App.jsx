@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
+import axios from 'axios';
+
 
 function App() {
+  const {users,setUsers} = useState([]);
+  const API_URL = 'http://localhost:8000/person';
+
+  useEffect (()=>{
+    getAllData();
+  },[]);
+
+  async function getAllData(){
+    
+    const response = await axios.get (API_URL)
+    setUsers(response.data);
+  }
+  
   return (
     <div className='wrapper'>
       <div className='header'>
@@ -14,15 +29,20 @@ function App() {
       </div>
       <div className='data-pengguna'>
       <h3>Data Pengguna</h3>
-          <ul>
-            <li>
+          <ul> 
+            {
+              users.map((user)=>(
+             <li>
               <div>
-                Nama Pengguna <span className='email'>(email@gmail.com)</span>
+                {user.name} <span className='email'>{user.email}</span>
               </div>
               <div>
                 <a href='#' className='edit'>Edit</a> - <a href='#' className='delete'>Delete</a>
               </div>
             </li>
+              ))
+            }
+          
           </ul>
       </div>
      </div>
